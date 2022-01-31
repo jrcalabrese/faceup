@@ -1,0 +1,17 @@
+Package: face
+Title: Load, organize, and wrangle OpenFace output with ease.
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Julianna",
+           family = "Calabrese",
+           role = c("aut", "cre"),
+           email = "calabrese.75@osu.edu",
+           comment = c(ORCID = "0000-0003-1010-2951"))
+Description: Load, organize, and wrangle OpenFace output with ease.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports:
+	dplyr,
+	tidyr
