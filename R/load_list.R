@@ -23,9 +23,12 @@ load_list <- function(path) {
   namelist <- unlist(lapply(namelist, sub, pattern = ".csv", replacement = ""),
                      use.names = FALSE)
 
-  lst <- mapply(cbind, lst, "clipID" = namelist, SIMPLIFY = FALSE)
+  lst <- mapply(cbind, lst, "clipID" = namelist, SIMPLIFY = FALSE) # fine!
 
-  lst <- lapply(lst, FUN = function(x){x[, c("clipID", names(x), "clipID")]})
+  column_names <- faceup::column_names
 
-  lst
+  #reorder
+  lst <- lapply(lst, FUN = function(X){X[c('clipID', column_names)]})
+
+  return(lst)
 }
