@@ -6,7 +6,7 @@
 #' @param path Path to your directory of `.csv` files after running OpenFace.
 #'
 #' @export
-load_openface <- function(path) {
+load_list <- function(path) {
 
   filelist <- list.files(path = path,
                          pattern =" *.csv",
@@ -18,6 +18,14 @@ load_openface <- function(path) {
                 stringsAsFactors = FALSE)
 
   names(lst) <- filelist
+
+  namelist <- fs::path_file(filelist)
+  namelist <- unlist(lapply(namelist, sub, pattern = ".csv", replacement = ""),
+                     use.names = FALSE)
+
+  lst <- mapply(cbind, lst, "clipID" = namelist, SIMPLIFY = FALSE)
+
+  lst <- lapply(lst, FUN = function(x){x[, c("clipID", names(x), "clipID")]})
 
   lst
 }

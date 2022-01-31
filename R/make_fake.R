@@ -14,7 +14,7 @@
 #' @export
 #'
 
-make_fake_openface <- function(path, n, loop, seed) {
+make_fake <- function(path, n, loop, seed) {
 
   for(i in 1:loop) {
 
@@ -116,7 +116,7 @@ make_fake_openface <- function(path, n, loop, seed) {
 
   newpath <- file.path(path, paste(x, ".csv", sep=""))
 
-  write.csv(dat, file = newpath)
+  write.csv(dat, file = newpath, row.names = FALSE)
 
   rm(newpath, x)
 
