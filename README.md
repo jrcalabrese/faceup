@@ -1,6 +1,6 @@
 # faceup
 
-> Load, organize, and wrangle OpenFace output with ease.
+> Load, organize, and wrangle OpenFace output.
 
 ## Install package
 
