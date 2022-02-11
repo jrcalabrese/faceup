@@ -2,13 +2,15 @@
 % Please edit documentation in R/long_stack.R
 \name{long_stack}
 \alias{long_stack}
-\title{Merge/stack all dataframes in your list into one long dataframe.}
+\title{Merge dataframes from a list into one long dataframe}
 \usage{
 long_stack(yourlist)
 }
 \arguments{
-\item{yourlist}{List of dataframes, assuming it's already been loaded into R.}
+\item{yourlist}{List, a list of dataframes.}
 }
 \description{
-This will take a ridiculously long time.
+Merge all OpenFace dataframes from a list into a single long-form dataframe.
+This will take a very long time, so it comes with a progress bar.
+Your list of dataframes must already be read into R.
 }

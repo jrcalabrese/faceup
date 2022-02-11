@@ -7,10 +7,10 @@
 make_small(bigpath, newpath)
 }
 \arguments{
-\item{bigpath}{Path to where all your big files currently live.}
+\item{bigpath}{Character, path to where all your big files currently live.}
 
-\item{newpath}{Path to where you want to write out the new smaller files.}
+\item{newpath}{Character, path to where you want to write out the new smaller files.}
 }
 \description{
-We only need the first few columns and the Action Unit columns any way.
+Subset only relevant columns from OpenFace data: the first five columns and the Action Units.
 }

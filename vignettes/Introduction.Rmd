@@ -1,5 +1,5 @@
 ---
-title: "Example"
+title: "Introduction to `faceup`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{example}
@@ -16,26 +16,25 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```
 library(faceup)
-library(tidyverse)
+library(dplyr)
 ```
 
-```{r}
-# make fake
+```
+# Generate fake OpenFace .csv files
 make_fake(path = "~/Downloads", 
           n = 5, 
           loop = 5, 
           seed = 12345)
 
-# make small
+# Load those big files, subset only relevant columns, and print output somewhere else
 make_small(bigpath = "~/Downloads", 
            newpath = "~/Desktop")
 
-# load list
+# Load all all OpenFace files as a list
 mylist <- load_list(path = "~/Desktop")
 
-# stack em
+# Stack the list of dataframes into a single long dataframe
 stacked <- long_stack(mylist)
 ```
-

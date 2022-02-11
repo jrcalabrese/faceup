@@ -1,0 +1,1 @@
+# A function that is basically make_fake but does it for dyadic data

@@ -2,14 +2,14 @@
 % Please edit documentation in R/load_list.R
 \name{load_list}
 \alias{load_list}
-\title{Read in a directory of OpenFace files and do stuff.}
+\title{Read in a directory of OpenFace files as a list}
 \usage{
 load_list(path)
 }
 \arguments{
-\item{path}{Path to your directory of \code{.csv} files after running OpenFace.}
+\item{path}{Character, the path to the directory of \code{.csv} files after running OpenFace}
 }
 \description{
-This will load all OpenFace \code{.csv} files as a \code{list}.
+This will read in all OpenFace \code{.csv} files as a \code{list} from a specific directory.
 Make sure to save it to an object or it won't work.
 }

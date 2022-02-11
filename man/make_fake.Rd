@@ -7,13 +7,13 @@
 make_fake(path, n, loop, seed)
 }
 \arguments{
-\item{path}{Path to where you want the files to go.}
+\item{path}{Character, path to where you want the files to go.}
 
-\item{n}{Number of rows for each generated \code{.csv}}
+\item{n}{Numeric, number of rows for each generated \code{.csv}}
 
-\item{loop}{Total number of individual \code{.csv} files to generate.}
+\item{loop}{Numeric, total number of individual \code{.csv} files to generate.}
 
-\item{seed}{Random seed.}
+\item{seed}{Numeric, random seed.}
 }
 \description{
 Each \code{.csv} file will have a random 15-digit ID number with the prefix "fake_".
