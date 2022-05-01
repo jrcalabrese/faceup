@@ -7,7 +7,11 @@
 #'
 #' @importFrom fs path_file
 #' @importFrom utils read.csv
+#' @importFrom purrr map
+#' @importFrom dplyr %>% select everything
+
 #' @export
+#'
 load_list <- function(path) {
 
   filelist <- list.files(path = path,
@@ -30,10 +34,11 @@ load_list <- function(path) {
 
   lst <- mapply(cbind, lst, "clipID" = namelist, SIMPLIFY = FALSE) # fine!
 
-  column_names <- faceup::column_names
+  #column_names <- faceup::column_names
 
   # Reorder column names
-  lst <- lapply(lst, FUN = function(x){x[c('clipID', column_names)]})
+  lst <- purrr::map(lst, ~ .x %>% dplyr::select("clipID", "frame", "face_id", "timestamp", "confidence", "success",
+                                  dplyr::everything()))
 
   return(lst)
 }
