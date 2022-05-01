@@ -30,7 +30,7 @@ load_list <- function(path) {
 
   lst <- mapply(cbind, lst, "clipID" = namelist, SIMPLIFY = FALSE) # fine!
 
-  #column_names <- faceup::column_names
+  column_names <- faceup::column_names
 
   # Reorder column names
   lst <- lapply(lst, FUN = function(x){x[c('clipID', column_names)]})
