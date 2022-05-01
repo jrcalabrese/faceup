@@ -13,6 +13,8 @@
 #'
 #' @importFrom dplyr mutate %>% across everything ends_with
 #' @importFrom stats runif
+#' @importFrom stringr str_sub str_remove_all
+#'
 #' @export
 make_fake <- function(path, n, loop, seed) {
 
@@ -44,11 +46,9 @@ make_fake <- function(path, n, loop, seed) {
     dplyr::mutate(dplyr::across(dplyr::ends_with("_r"), ~ sample((seq(from = 0, to = 5, by = .05)), size = n, replace = TRUE))) %>%
     dplyr::mutate(dplyr::across(dplyr::ends_with("_c"), ~ sample(c(0, 1), replace = TRUE, size = n)))
 
-  # make new file path
-  #x <- as.numeric(Sys.time())*47
-  #x <- as.numeric(paste( sample( 0:9, 5, replace=TRUE ), collapse="" ))
-  #x <- as.numeric(paste( sample( 0:9, 5, replace=TRUE ), collapse="" ))
-  x <- as.numeric(sprintf("%5.0f",runif(1,1e4,1e5)))
+  # make new file path, generate random ID numbers
+  x <- stringr::str_sub( (as.numeric(Sys.time())*47), -6, -1)
+  x <- stringr::str_remove_all(x, "[.]")
   x <- paste("FakeOpenFace_", x, sep="")
 
   newpath <- file.path(path, paste(x, ".csv", sep = ""))
