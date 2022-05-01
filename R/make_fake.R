@@ -16,6 +16,11 @@
 #' @export
 make_fake <- function(path, n, loop, seed) {
 
+  if (missing(seed))
+    seed <- 1227
+  else
+    seed <- seed
+
   timestamp <- gaze_0_x <- p_33 <- NULL
 
   for(i in 1:loop) {
@@ -24,7 +29,7 @@ make_fake <- function(path, n, loop, seed) {
 
   dat <- matrix(0, ncol = 329, nrow = n) %>% as.data.frame()
 
-  #column_names <- faceup::column_names
+  #colnames(dat) <- faceup::column_names
   colnames(dat) <- column_names
 
   dat <- dat %>%
@@ -40,8 +45,9 @@ make_fake <- function(path, n, loop, seed) {
     dplyr::mutate(dplyr::across(dplyr::ends_with("_c"), ~ sample(c(0, 1), replace = TRUE, size = n)))
 
   # make new file path
-  x <- as.numeric(Sys.time())*47
-  x <- paste("FakeIDNumber_", x, sep="")
+  #x <- as.numeric(Sys.time())*47
+  x <- paste( sample( 0:9, 5, replace=TRUE ), collapse="" )
+  x <- paste("FakeOpenFace_", x, sep="")
 
   newpath <- file.path(path, paste(x, ".csv", sep = ""))
 
