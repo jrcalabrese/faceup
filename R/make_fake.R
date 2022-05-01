@@ -38,7 +38,7 @@ make_fake <- function(path, n, loop, seed) {
     dplyr::mutate(face_id = 1) %>%
     dplyr::mutate(timestamp = seq(from = 1, to = n, by = 1)) %>%
     dplyr::mutate(timestamp = (timestamp/3)) %>%
-    dplyr::mutate(confidence = stats::runif(n,0.85, 0.97)) %>%
+    dplyr::mutate(confidence = stats::runif(n,0.35, 0.97)) %>%
     dplyr::mutate(success = sample(c(0, 1), replace = TRUE, size = n)) %>%
     dplyr::mutate(dplyr::across(gaze_0_x:p_33, ~ rnorm(n = n, mean = 0, sd = 5))) %>% # eh
     dplyr::mutate(dplyr::across(dplyr::ends_with("_r"), ~ sample((seq(from = 0, to = 5, by = .05)), size = n, replace = TRUE))) %>%
@@ -46,7 +46,9 @@ make_fake <- function(path, n, loop, seed) {
 
   # make new file path
   #x <- as.numeric(Sys.time())*47
-  x <- paste( sample( 0:9, 5, replace=TRUE ), collapse="" )
+  #x <- as.numeric(paste( sample( 0:9, 5, replace=TRUE ), collapse="" ))
+  #x <- as.numeric(paste( sample( 0:9, 5, replace=TRUE ), collapse="" ))
+  x <- as.numeric(sprintf("%5.0f",runif(1,1e4,1e5)))
   x <- paste("FakeOpenFace_", x, sep="")
 
   newpath <- file.path(path, paste(x, ".csv", sep = ""))
