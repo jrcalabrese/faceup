@@ -23,11 +23,11 @@ make_fake2 <- function(path, n, loop, dyad, seed) {
   else
     seed <- seed
 
+  set.seed(seed)
+
   timestamp <- gaze_0_x <- p_33 <- NULL
 
   for(i in 1:loop) {
-
-    set.seed(seed)
 
     dat <- matrix(0, ncol = 329, nrow = n) %>% as.data.frame()
 
