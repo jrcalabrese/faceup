@@ -1,6 +1,5 @@
 #' Generate one line of text for FeatureExtraction.exe
 #'
-#' Generate one line of text to run in the Command Line for FeatureExtraction.exe
 #' OpenFace does not allow you to run all the videos in a single directory,
 #' but does allow multiple videos on the same line if each video is individually specified.
 #' This may be able to be done with a Python tool, but this may be easier,
@@ -41,9 +40,6 @@ name_video <- function(input_dir, output_dir, of_dir, save_txt, specify){
   # Put each video in double quotes, add `-f ` to front of each video to call on it
   filelist <- paste0('-f "', filelist, '"')
 
-  # Collapse into one line, separated by spaces
-  filelist <- paste(filelist, collapse = ' ')
-
   # Put of_dir in front of filelist
   filelist <- paste0(of_dir, " ", filelist)
 
@@ -56,7 +52,10 @@ name_video <- function(input_dir, output_dir, of_dir, save_txt, specify){
   }
   else {
       filelist <- filelist
-      }
+  }
+
+  # Collapse into one line, separated by spaces
+  filelist <- paste(filelist, collapse = ' ')
 
   writeLines(filelist, save_txt)
 }

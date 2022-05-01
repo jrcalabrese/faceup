@@ -18,7 +18,6 @@ name_video(input_dir, output_dir, of_dir, save_txt, specify)
 \item{specify}{Optional. Adds \code{-aus} to specify that only Action Units should be computed Defaults to \code{FALSE}.}
 }
 \description{
-Generate one line of text to run in the Command Line for FeatureExtraction.exe
 OpenFace does not allow you to run all the videos in a single directory,
 but does allow multiple videos on the same line if each video is individually specified.
 This may be able to be done with a Python tool, but this may be easier,
