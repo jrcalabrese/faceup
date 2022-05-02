@@ -3,6 +3,7 @@
 #' Merge all OpenFace dataframes from a list into a single long-form dataframe.
 #' This will take a very long time, so it comes with a progress bar.
 #' Your list of dataframes must already be read into R.
+#' Be aware that this function will remove the `face_id` column as it is not needed for the rest of the workflow.
 #'
 #' @param yourlist List, a list of dataframes.
 #'
@@ -10,6 +11,8 @@
 #' @importFrom utils txtProgressBar
 #' @export
 long_stack <- function(yourlist){
+
+  face_id <- NULL
 
   # first the actual function
   newlst <- yourlist %>%
@@ -29,6 +32,9 @@ long_stack <- function(yourlist){
   }
 
   close(progress_bar)
+
+  newlst <- newlst %>%
+    select(-face_id)
 
   return(newlst)
 }

@@ -13,4 +13,5 @@ long_stack(yourlist)
 Merge all OpenFace dataframes from a list into a single long-form dataframe.
 This will take a very long time, so it comes with a progress bar.
 Your list of dataframes must already be read into R.
+Be aware that this function will remove the \code{face_id} column as it is not needed for the rest of the workflow.
 }

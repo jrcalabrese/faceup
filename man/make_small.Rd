@@ -4,12 +4,12 @@
 \alias{make_small}
 \title{Make OpenFace \code{.csv} files narrower}
 \usage{
-make_small(bigpath, newpath)
+make_small(input_dir, output_dir)
 }
 \arguments{
-\item{bigpath}{Character, path to where all your big files currently live.}
+\item{input_dir}{Character, path to where all your big files currently live.}
 
-\item{newpath}{Character, path to where you want to write out the new smaller files.}
+\item{output_dir}{Character, path to where you want to write out the new smaller files.}
 }
 \description{
 Subset only relevant columns from OpenFace data: the first five columns and the Action Units.

@@ -2,18 +2,17 @@
 #'
 #' Subset only relevant columns from OpenFace data: the first five columns and the Action Units.
 #'
-#' @param bigpath Character, path to where all your big files currently live.
-#'
-#' @param newpath Character, path to where you want to write out the new smaller files.
+#' @param input_dir Character, path to where all your big files currently live.
+#' @param output_dir Character, path to where you want to write out the new smaller files.
 #'
 #' @importFrom dplyr %>% select starts_with
 #' @importFrom fs path_file
 #' @importFrom utils write.csv read.csv
 #' @importFrom purrr map
 #' @export
-make_small <- function(bigpath, newpath) {
+make_small <- function(input_dir, output_dir) {
 
-  filelist <- list.files(path = bigpath,
+  filelist <- list.files(path = input_dir,
                          pattern = "*.csv",
                          full.names = TRUE)
 
@@ -32,6 +31,6 @@ make_small <- function(bigpath, newpath) {
   names(lst) <- namelist
 
   lapply(1:length(lst), function(i) utils::write.csv(lst[[i]],
-                                              file = file.path(newpath, names(lst[i])),
+                                              file = file.path(output_dir, names(lst[i])),
                                               row.names = FALSE))
 }
