@@ -39,7 +39,7 @@ remove_orphans <- function(dat, id_num, output_dir){
   path1 <- paste0(output_dir, "/orphaned_dyadmembers.csv")
   write.csv(x = orphans,
             file = path1,
-            row.names = TRUE)
+            row.names = FALSE)
   rm(orphans)
 
   # Now you can remove them
