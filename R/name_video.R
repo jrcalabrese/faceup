@@ -9,7 +9,7 @@
 #' @param output_dir Directory of where you want the processed OpenFace videos to be saved.
 #' @param of_dir Directory of where your command is stored. Must include `FeatureExtraction.exe` at the end.
 #' @param save_txt Directory of where you want the .txt file to be saved.
-#' @param specify Optional. Adds `-aus` to specify that only Action Units should be computed Defaults to `FALSE`.
+#' @param specify Optional. Adds `-aus` to specify that only Action Units should be computed. Defaults to `FALSE`.
 #'
 #' @export
 name_video <- function(input_dir, output_dir, of_dir, save_txt, specify){
@@ -55,7 +55,7 @@ name_video <- function(input_dir, output_dir, of_dir, save_txt, specify){
   }
 
   # Collapse into one line, separated by spaces
-  filelist <- paste(filelist, collapse = ' ')
+  #filelist <- paste(filelist, collapse = ' ')
 
   writeLines(filelist, save_txt)
 }

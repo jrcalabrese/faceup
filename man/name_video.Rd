@@ -15,7 +15,7 @@ name_video(input_dir, output_dir, of_dir, save_txt, specify)
 
 \item{save_txt}{Directory of where you want the .txt file to be saved.}
 
-\item{specify}{Optional. Adds \code{-aus} to specify that only Action Units should be computed Defaults to \code{FALSE}.}
+\item{specify}{Optional. Adds \code{-aus} to specify that only Action Units should be computed. Defaults to \code{FALSE}.}
 }
 \description{
 OpenFace does not allow you to run all the videos in a single directory,
