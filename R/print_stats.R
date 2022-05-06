@@ -10,7 +10,9 @@
 #' @export
 print_stats <- function(dat, id_num, output_dir){
 
-  confidence <- sd <- avg_confidence <- sd_confidence <- success <- avg_success <- sd_success <- NULL
+  confidence <- sd <- avg_confidence <- sd_confidence <- success <- avg_success <- sd_success <- enquo <- NULL
+
+  id_num <- enquo(id_num)
 
   if (missing(id_num))
     id_num <- dat[, 1]
