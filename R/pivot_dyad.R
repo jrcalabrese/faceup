@@ -24,7 +24,9 @@ pivot_dyad <- function(dat, id_num, smushed, output_dir) {
   # I need to test it on some real/non-simulated data,
   # or ideally improve the make_fake functions...
 
-  DyadMember <- NULL
+  DyadMember <- enquo <- NULL
+
+  id_num <- enquo(id_num)
 
   # First, address missing
   if (missing(id_num))

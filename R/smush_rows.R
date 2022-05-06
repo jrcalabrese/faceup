@@ -13,6 +13,10 @@
 #' @export
 smush_rows <- function(dat, id_num, smush){
 
+  enquo <- NULL
+
+  id_num <- enquo(id_num)
+
   if (missing(id_num))
     id_num <- dat[, 1]
   else

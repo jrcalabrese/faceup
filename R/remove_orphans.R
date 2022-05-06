@@ -14,7 +14,9 @@
 #' @export
 remove_orphans <- function(dat, id_num, output_dir){
 
-  newID <- DyadMember <- Daughter <- Mother <- Member <- RemoveThese <- NULL
+  newID <- DyadMember <- Daughter <- Mother <- Member <- RemoveThese <- enquo <- NULL
+
+  id_num <- enquo(id_num)
 
   # First, address missing
   if (missing(id_num))
@@ -33,8 +35,14 @@ remove_orphans <- function(dat, id_num, output_dir){
 
   orphans <- orphans[!complete.cases(orphans), ]
   orphans[is.na(orphans)] <- "Removed during filter_rows() due to low/success"
-  orphans$Daughter[orphans$Daughter == "Daughter"] <- "Adequate confidence/success"
-  orphans$Mother[orphans$Mother == "Mother"] <- "Adequate confidence/success"
+
+  member1name <- orphans[,2] %>% names()
+  member2name <- orphans[,3] %>% names()
+
+  orphans[,2][orphans[,2] == member1name] <- "Adequate confidence/success"
+  orphans[,3][orphans[,3] == member2name] <- "Adequate confidence/success"
+  #orphans$Daughter[orphans$Daughter == "Daughter"] <- "Adequate confidence/success"
+  #orphans$Mother[orphans$Mother == "Mother"] <- "Adequate confidence/success"
 
   path1 <- paste0(output_dir, "/orphaned_dyadmembers.csv")
   write.csv(x = orphans,
@@ -54,7 +62,7 @@ remove_orphans <- function(dat, id_num, output_dir){
   orphans <- orphans[!complete.cases(orphans), ]
 
   orphans <- orphans %>%
-    mutate(Member = coalesce(Daughter, Mother)) %>%
+    mutate(Member = coalesce(member1name, member2name)) %>%
     mutate(RemoveThese = paste0(newID, "_", Member)) %>%
     select(RemoveThese)
 
