@@ -37,8 +37,9 @@ pivot_dyad <- function(dat, id_num, smushed, output_dir) {
   # Separate identifier into number and dyad member
   long <- dat %>%
     separate(col = {{id_num}},
-             into = c("id_num", "DyadMember"),
-             sep = "_(?=[^_]+$)")
+             into = c({{id_num}}, "DyadMember"),
+             sep = "_(?=[^_]+$)") %>%
+    as.data.frame()
 
   # Write out very long dataframe
   path1 <- paste0(output_dir, "/openface_longer_df.csv", sep = "")

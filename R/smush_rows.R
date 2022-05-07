@@ -13,7 +13,7 @@
 #' @export
 smush_rows <- function(dat, id_num, smush){
 
-  enquo <- NULL
+  enquo <- new_timestamp <- row_number <- idx <- frame <- NULL
 
   id_num <- enquo(id_num)
 
@@ -28,11 +28,18 @@ smush_rows <- function(dat, id_num, smush){
     smush <- smush
 
   x <- dat %>%
-    group_by({{id_num}},
-             new_timestamp = as.integer(gl(n(), smush, n()))) %>%
-    summarize(across(starts_with("AU"), mean),
-              .groups = "drop")
+    group_by({{id_num}}, new_timestamp = as.integer(gl(n(), smush, n()))) %>%
+    summarize(across(starts_with(c("frame", "AU")), mean), .groups = "drop")
+
+  # over-write new_timestamp
+  x <- x %>%
+    group_by({{id_num}}, idx = cumsum(new_timestamp == 1L)) %>%
+    mutate(new_timestamp = row_number()) %>%
+    ungroup %>%
+    select(-idx) %>%
+    select({{id_num}}, new_timestamp, frame, everything())
 
   return(x)
 
 }
+
