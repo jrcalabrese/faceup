@@ -4,14 +4,12 @@
 \alias{pivot_dyad}
 \title{Widen data by dyad member.}
 \usage{
-pivot_dyad(dat, id_num, smushed, output_dir)
+pivot_dyad(dat, id_num, output_dir)
 }
 \arguments{
 \item{dat}{Dataframe.}
 
 \item{id_num}{Participant identifier. Defaults to first column in dataframe.}
-
-\item{smushed}{Binary, TRUE/FALSE. Has your data been smushed with \code{smush_rows()}? Required.}
 
 \item{output_dir}{Where you want your dataframes to be saved to.}
 }
@@ -23,6 +21,7 @@ removed orphans with \code{remove_orphans}, and smushed with \code{smush_rows}.
 }
 \details{
 For dyadic data, this is the last step in the workflow.
+Also note that this function removes the \code{frame} variable, leaving behind only \code{timestamp} or \code{new_timestamp}.
 
 This will output two dataframes: 1) an extra long dataframe by dyad member, and 2)
 a slightly wider dataframe where each dyad members has their own Action Unit column.

@@ -84,10 +84,9 @@ dat <- dat %>%
              id_num = clipID)
 ```
 
-```
+```{r}
 pivot_dyad(
   dat = dat,
   id_num = "clipID",
-  smushed = TRUE,
   output_dir = "~/Desktop/for_practice/processed_output")
 ```

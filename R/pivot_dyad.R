@@ -6,27 +6,23 @@
 #' removed orphans with `remove_orphans`, and smushed with `smush_rows`.
 #'
 #' For dyadic data, this is the last step in the workflow.
+#' Also note that this function removes the `frame` variable, leaving behind only `timestamp` or `new_timestamp`.
 #'
 #' This will output two dataframes: 1) an extra long dataframe by dyad member, and 2)
 #' a slightly wider dataframe where each dyad members has their own Action Unit column.
 #'
 #' @param dat Dataframe.
 #' @param id_num Participant identifier. Defaults to first column in dataframe.
-#' @param smushed Binary, TRUE/FALSE. Has your data been smushed with `smush_rows()`? Required.
 #' @param output_dir Where you want your dataframes to be saved to.
 #'
 #' @importFrom dplyr %>% select starts_with all_of
 #' @importFrom tidyr pivot_wider separate
 #' @export
-pivot_dyad <- function(dat, id_num, smushed, output_dir) {
+pivot_dyad <- function(dat, id_num, output_dir) {
 
-  # I am not 100% sure this will work,
-  # I need to test it on some real/non-simulated data,
-  # or ideally improve the make_fake functions...
+  DyadMember <- frame <- NULL
 
-  DyadMember <- enquo <- NULL
-
-  id_num <- enquo(id_num)
+  #id_num <- enquo(id_num)
 
   # First, address missing
   if (missing(id_num))
@@ -46,13 +42,9 @@ pivot_dyad <- function(dat, id_num, smushed, output_dir) {
   write.csv(x = long, file = path1, row.names = FALSE)
   rm(path1)
 
-  # ID variable
-  if (smushed == FALSE) {
-    idvars <- c("id_num", "frame", "timestamp")
-  }
-  else {
-    idvars <- c("id_num", "new_timestamp")
-  }
+  # Get rid of frame!
+  long <- long %>%
+    select(-frame)
 
   # Action Units
   aus <- long %>%
@@ -61,7 +53,8 @@ pivot_dyad <- function(dat, id_num, smushed, output_dir) {
 
   wide <- pivot_wider(
     data = long,
-    id_cols = all_of(idvars),
+    #id_cols = all_of(idvars),
+    #id_expand = FALSE,
     names_from = DyadMember,
     values_from = all_of(aus),
     values_fn = function(x) paste(x, collapse=""))
