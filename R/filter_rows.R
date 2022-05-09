@@ -15,7 +15,7 @@
 #' Where should this output file be saved?
 #'
 #' @importFrom stats aggregate
-#' @importFrom dplyr %>% group_by ungroup filter mutate select summarize if_else distinct n
+#' @importFrom dplyr %>% group_by ungroup filter mutate select summarize if_else distinct n rowwise
 #'
 #' @export
 filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres, output_dir) {
@@ -93,8 +93,13 @@ filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres,
   rm(filtered_conf_list, path)
 
   dat <- dat %>%
-    filter(keep_conf_row %in% "KEEP") %>%
-    select(-c(keep_conf_row))
+    #filter(keep_conf_row %in% "KEEP") %>%
+    #select(-c(keep_conf_row)) %>%
+    mutate(across(everything(), ~ as.numeric(.x))) %>%
+    rowwise() %>%
+    mutate(across(everything(), .fns = ~ ifelse(keep_conf_row == "TRASH", yes = NA, .x))) %>%
+    select(-keep_conf_row) %>%
+    ungroup()
 
   ## Success
   if (succ_thres == TRUE) {
@@ -113,8 +118,13 @@ filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres,
     rm(filtered_succ_list, path)
 
     dat <- dat %>%
-      filter(keep_succ_row %in% "KEEP") %>%
-      select(-c(keep_succ_row))
+      #filter(keep_succ_row %in% "KEEP") %>%
+      #select(-c(keep_succ_row)) %>%
+      mutate(across(everything(), ~ as.numeric(.x))) %>%
+      rowwise() %>%
+      mutate(across(everything(), .fns = ~ ifelse(keep_succ_row == "TRASH", yes = NA, .x))) %>%
+      select(-keep_succ_row) %>%
+      ungroup()
 
   }
 
