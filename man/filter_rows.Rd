@@ -22,9 +22,9 @@ Specify threshold here. Will keep all participants above this average. Defaults 
 \item{succ_removal}{Do you want to remove entire participants based on average number of unsuccessful rows?
 Specify threshold here. Will keep all participants above this threshold. Defaults to 0.}
 
-\item{conf_thres}{Numeric. Your confidence threshold. Will keep all rows above the specified threshold.}
+\item{conf_thres}{Numeric. Your confidence threshold. Will keep all rows above the specified threshold. Makes NA, does not remove.}
 
-\item{succ_thres}{Binary, TRUE/FALSE. Do you want to remove individual rows where success is zero? Defaults to FALSE.}
+\item{succ_thres}{Binary, TRUE/FALSE. Do you want to remove individual rows where success is zero? Defaults to FALSE. Makes NA, does not remove.}
 
 \item{output_dir}{A \code{.txt} file will generated on who was removed and what the exclusion criteria was.
 Where should this output file be saved?}

@@ -9,8 +9,8 @@
 #' Specify threshold here. Will keep all participants above this average. Defaults to 0.
 #' @param succ_removal Do you want to remove entire participants based on average number of unsuccessful rows?
 #' Specify threshold here. Will keep all participants above this threshold. Defaults to 0.
-#' @param conf_thres Numeric. Your confidence threshold. Will keep all rows above the specified threshold.
-#' @param succ_thres Binary, TRUE/FALSE. Do you want to remove individual rows where success is zero? Defaults to FALSE.
+#' @param conf_thres Numeric. Your confidence threshold. Will keep all rows above the specified threshold. Makes NA, does not remove.
+#' @param succ_thres Binary, TRUE/FALSE. Do you want to remove individual rows where success is zero? Defaults to FALSE. Makes NA, does not remove.
 #' @param output_dir A `.txt` file will generated on who was removed and what the exclusion criteria was.
 #' Where should this output file be saved?
 #'
@@ -20,7 +20,7 @@
 #' @export
 filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres, output_dir) {
 
-  clipID <- confidence <- avg_confidence <- keep_conf <- success <- avg_success <- keep_succ <- keep_conf_row <- keep_succ_row <- NULL
+  clipID <- confidence <- avg_confidence <- keep_conf <- success <- avg_success <- keep_succ <- keep_conf_row <- keep_succ_row <- AU01_r <- AU45_c <-
 
   # Address the presence or absence of conf_removal and succ_removal
   if (missing(conf_removal))
@@ -93,13 +93,14 @@ filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres,
   rm(filtered_conf_list, path)
 
   dat <- dat %>%
-    filter(keep_conf_row %in% "KEEP") %>%
-    select(-c(keep_conf_row)) #%>%
+    #filter(keep_conf_row %in% "KEEP") %>%
+    #select(-c(keep_conf_row)) #%>%
     #mutate(across(everything(), ~ as.numeric(.x))) %>%
-    #rowwise() %>%
+    rowwise() %>%
     #mutate(across(everything(), .fns = ~ ifelse(keep_conf_row == "TRASH", yes = NA, .x))) %>%
-    #select(-keep_conf_row) %>%
-    #ungroup()
+    mutate(across(AU01_r:AU45_c, .fns = ~ ifelse(keep_conf_row == "TRASH", yes = NA, .x))) %>%
+    select(-keep_conf_row) %>%
+    ungroup()
 
   ## Success
   if (succ_thres == TRUE) {
@@ -118,13 +119,14 @@ filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres,
     rm(filtered_succ_list, path)
 
     dat <- dat %>%
-      filter(keep_succ_row %in% "KEEP") %>%
-      select(-c(keep_succ_row)) #%>%
+      #filter(keep_succ_row %in% "KEEP") %>%
+      #select(-c(keep_succ_row)) #%>%
       #mutate(across(everything(), ~ as.numeric(.x))) %>%
-      #rowwise() %>%
+      rowwise() %>%
       #mutate(across(everything(), .fns = ~ ifelse(keep_succ_row == "TRASH", yes = NA, .x))) %>%
-      #select(-keep_succ_row) %>%
-      #ungroup()
+      mutate(across(AU01_r:AU45_c, .fns = ~ ifelse(keep_succ_row == "TRASH", yes = NA, .x))) %>%
+      select(-keep_succ_row) %>%
+      ungroup()
 
   }
 
