@@ -93,13 +93,13 @@ filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres,
   rm(filtered_conf_list, path)
 
   dat <- dat %>%
-    #filter(keep_conf_row %in% "KEEP") %>%
-    #select(-c(keep_conf_row)) %>%
-    mutate(across(everything(), ~ as.numeric(.x))) %>%
-    rowwise() %>%
-    mutate(across(everything(), .fns = ~ ifelse(keep_conf_row == "TRASH", yes = NA, .x))) %>%
-    select(-keep_conf_row) %>%
-    ungroup()
+    filter(keep_conf_row %in% "KEEP") %>%
+    select(-c(keep_conf_row)) #%>%
+    #mutate(across(everything(), ~ as.numeric(.x))) %>%
+    #rowwise() %>%
+    #mutate(across(everything(), .fns = ~ ifelse(keep_conf_row == "TRASH", yes = NA, .x))) %>%
+    #select(-keep_conf_row) %>%
+    #ungroup()
 
   ## Success
   if (succ_thres == TRUE) {
@@ -118,13 +118,13 @@ filter_rows <- function(dat, conf_removal, succ_removal, conf_thres, succ_thres,
     rm(filtered_succ_list, path)
 
     dat <- dat %>%
-      #filter(keep_succ_row %in% "KEEP") %>%
-      #select(-c(keep_succ_row)) %>%
-      mutate(across(everything(), ~ as.numeric(.x))) %>%
-      rowwise() %>%
-      mutate(across(everything(), .fns = ~ ifelse(keep_succ_row == "TRASH", yes = NA, .x))) %>%
-      select(-keep_succ_row) %>%
-      ungroup()
+      filter(keep_succ_row %in% "KEEP") %>%
+      select(-c(keep_succ_row)) #%>%
+      #mutate(across(everything(), ~ as.numeric(.x))) %>%
+      #rowwise() %>%
+      #mutate(across(everything(), .fns = ~ ifelse(keep_succ_row == "TRASH", yes = NA, .x))) %>%
+      #select(-keep_succ_row) %>%
+      #ungroup()
 
   }
 
