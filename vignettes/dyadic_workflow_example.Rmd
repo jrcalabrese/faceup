@@ -1,0 +1,92 @@
+---
+title: "Example workflow for dyadic data."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{example}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#devtools::install_github("jrcalabrese/faceup", force = TRUE)
+library(faceup)
+library(dplyr)
+library(tidyr)
+```
+
+## Preparation
+
+```
+# Generate fake OpenFace .csv files
+make_fake2(path = "~/Desktop/for_practice/raw_data", 
+          n = 100, 
+          loop = 25, 
+          dyad = c("Mother", "Daughter"),
+          seed = 12345)
+
+# Load those big files, subset only relevant columns, and print output somewhere else
+make_small(input_dir = "~/Desktop/for_practice/raw_data", 
+           output_dir = "~/Desktop/for_practice/small_data")
+```
+
+```
+# Load all all OpenFace files as a list
+mylist <- load_list(path = "~/Desktop/for_practice/small_data")
+
+# Stack the list of dataframes into a single long dataframe
+dat <- long_stack(mylist)
+```
+
+## Management
+
+```
+# Print statistics based on raw confidence and success
+print_stats(
+  dat = dat,
+  id_num = "clipID",
+  output_dir = "~/Desktop/for_practice/processed_output"
+)
+```
+
+```
+# Filter rows based on your exclusion criteria
+dat <- dat %>% 
+  filter_rows(conf_removal = 0.50, 
+              succ_removal = 0.50, 
+              conf_thres = 0.40, 
+              succ_thres = TRUE, 
+              output_dir = "~/Desktop/for_practice/processed_output")
+```
+
+```
+# Remove any orphans
+# We only want whole dyads, no half-dyads allowed
+dat <- dat %>%
+  remove_orphans(
+    id_num = clipID,
+    output_dir = "~/Desktop/for_practice/processed_output"
+  )
+```
+
+```
+# Average rows together by smushing
+dat <- dat %>%
+  smush_rows(smush = 30,
+             id_num = clipID)
+```
+
+```
+pivot_dyad(
+  dat = dat,
+  id_num = "clipID",
+  output_dir = "~/Desktop/for_practice/processed_output")
+```
